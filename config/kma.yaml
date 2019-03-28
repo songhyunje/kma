@@ -1,0 +1,38 @@
+model_name: model/model.pt
+vocab_name: model/vocab.pt
+
+train_file: data/train.txt
+validation_file: data/valid.txt
+test_file: data/test.txt
+
+preprocessing:
+  max_token: 50
+  min_freq: 0
+
+encoder:
+  vocab_embed_dim: 100
+  input_dropout: 0.2
+  rnn_type: LSTM
+  rnn_layer: 3
+  rnn_dropout: 0.2
+  hidden_size: 100
+  bidirectional: True
+
+decoder:
+  vocab_embed_dim: 100
+  input_dropout: 0.2
+  rnn_type: LSTM
+  rnn_layer: 3
+  rnn_dropout: 0.2
+  teaching_force_ratio: 1.0
+
+optimizer:
+  optim: Adam
+  lr: 0.001
+
+learning:
+  epochs: 100
+  batch_size: 128
+  max_grad_norm: 5
+
+gpu: False

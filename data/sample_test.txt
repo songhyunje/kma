@@ -1,0 +1,61 @@
+1. 1/SN+./SF
+
+석훈의 석훈/NNP+의/JKG
+진지한 진지/XR+하/XSA+ㄴ/ETM
+눈동자와 눈동자/NNG+와/JC
+마주 마주/MAG
+잡은 잡/VV+은/ETM
+손을 손/NNG+을/JKO
+통해 통하/VV+아/EC
+가슴 가슴/NNG
+깊은 깊/VA+은/ETM
+곳에 곳/NNG+에/JKB
+묻어 묻/VV+어/EC
+둔 두/VX+ㄴ/ETM
+서러움이 서러움/NNG+이/JKS
+꿈틀대는 꿈틀대/VV+는/ETM
+것 것/NNB
+같았다. 같/VA+았/EP+다/EF+./SF
+
+한 한/MM
+점 점/NNB
+구겨짐도, 구기/VV+어/EC+지/VX+ㅁ/ETN+도/JX+,/SP
+퇴색한 퇴색/XR+하/XSV+ㄴ/ETM
+느낌도 느낌/NNG+도/JX
+들지 들/VV+지/EC
+않는 않/VX+는/ETM
+석훈의 석훈/NNP+의/JKG
+투명한 투명/NNG+하/XSA+ㄴ/ETM
+눈빛 눈/NNG+빛/NNG
+앞에 앞/NNG+에/JKB
+진우는 진우/NNP+는/JX
+자신의 자신/NNG+의/JKG
+존재가 존재/NNG+가/JKS
+한없이 한없이/MAG
+초라해 초라/XR+하/XSA+아/EC
+보였다. 보이/VV+었/EP+다/EF+./SF
+
+진우는 진우/NNP+는/JX
+저 저/MM
+희디흰 희디희/VA+ㄴ/ETM
+솜을 솜/NNG+을/JKO
+뜯어내 뜯어내/VV+어/EC
+세상에 세상/NNG+에/JKB
+숨어 숨/VV+어/EC
+있는 있/VX+는/ETM
+모든 모든/MM
+상처들을 상처/NNG+들/XSN+을/JKO
+싸매고 싸매/VV+고/EC
+싶다는 싶/VX+다는/ETM
+생각을 생각/NNG+을/JKO
+했다. 하/VV+았/EP+다/EF+./SF
+
+진우의 진우/NNP+의/JKG
+얼굴 얼굴/NNG
+위로 위/NNG+로/JKB
+애매한 애매/XR+하/XSA+ㄴ/ETM
+웃음이 웃음/NNG+이/JKS
+번질 번지/VV+ㄹ/ETM
+듯하다가 듯/NNB+하/XSA+다가/EC
+멈추었다. 멈추/VV+었/EP+다/EF+./SF
+
