@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+import io
 
 import dill
 import torch
@@ -54,7 +55,7 @@ model.load_state_dict(checkpoint['model'])
 logger.info(model)
 model.eval()
 
-with open(args.input_file, 'r') as f:
+with io.open(args.input_file, 'r', encoding='utf-8') as f:
     sents = f.readlines()
 
 named_field = ('word', WORD)
@@ -78,7 +79,7 @@ with torch.no_grad():
                       zip(tgt_id_seq, tag_id_seq)]
             outputs.append(result)
 
-with open(args.output_file, 'w') as f:
+with io.open(args.output_file, 'w', encoding='utf-8') as f:
     for output in outputs:
         f.write(' '.join('{}/{}'.format(*mt) for mt in syllable_to_eojeol(output)) + '\n')
 
