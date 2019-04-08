@@ -65,7 +65,7 @@ for sent in sents:
     examples.append(POSExample.fromsent(syllables, named_field))
 
 text_dataset = Dataset(examples, [named_field])
-text_iter = torchtext.data.BucketIterator(text_dataset, batch_size=1, shuffle=False)
+text_iter = torchtext.data.BucketIterator(text_dataset, batch_size=5, shuffle=False)
 
 outputs = []
 with torch.no_grad():

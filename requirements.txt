@@ -3,3 +3,4 @@ torch>=1.0
 tqdm
 git+git://github.com/pytorch/text.git@master#egg=torchtext
 dill
+pyyaml
