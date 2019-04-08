@@ -1,7 +1,7 @@
 import argparse
+import io
 import logging
 import os
-import io
 
 import dill
 import torch
@@ -82,4 +82,3 @@ with torch.no_grad():
 with io.open(args.output_file, 'w', encoding='utf-8') as f:
     for output in outputs:
         f.write(' '.join('{}/{}'.format(*mt) for mt in syllable_to_eojeol(output)) + '\n')
-
