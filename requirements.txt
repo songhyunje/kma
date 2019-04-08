@@ -1,5 +1,5 @@
 numpy
 torch>=1.0
 tqdm
-pip install https://github.com/pytorch/text.git
+git+git://github.com/pytorch/text.git@master#egg=torchtext
 dill
