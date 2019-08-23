@@ -11,6 +11,7 @@ import yaml
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 from kma.common.util import unique_everseen
+from kma.common.early_stop import EarlyStopping
 from kma.dataset import SejongDataset
 from kma.decoders.rnn_decoder import RNNDecoderPointer
 from kma.encoders.rnn_encoder import RNNEncoder
@@ -18,7 +19,7 @@ from kma.models.model import KMAModel
 from kma.taggers.crf_tagger import CRFTagger
 
 with open(os.path.join('config', 'kma.yaml'), 'r') as f:
-    config = yaml.load(f)
+    config = yaml.load(f, Loader=yaml.FullLoader)
 
 LOG_FORMAT = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
 logging.basicConfig(format=LOG_FORMAT, level=getattr(logging, 'INFO'))
@@ -87,6 +88,7 @@ model_params = filter(lambda p: p.requires_grad, model.parameters())
 optimizer = getattr(optim, config['optimizer']['optim'])(model_params, lr=config['optimizer']['lr'])
 scheduler = ReduceLROnPlateau(optimizer, 'min')
 criterion = nn.NLLLoss(ignore_index=LEX.vocab.stoi[LEX.pad_token])
+early_stopping = EarlyStopping(patience=config['learning']['early_stop'])
 
 train_iter = torchtext.data.BucketIterator(train, batch_size=config['learning']['batch_size'],
                                            sort_key=lambda x: x.word.__len__(),
@@ -98,6 +100,7 @@ valid_iter = torchtext.data.BucketIterator(valid, batch_size=config['learning'][
                                            sort_within_batch=True,
                                            shuffle=True)
 
+best_model = None
 for epoch in range(config['learning']['epochs']):
     model.train()
     train_loss = 0
@@ -136,5 +139,14 @@ for epoch in range(config['learning']['epochs']):
     scheduler.step(dev_loss)
     logger.info("Epoch: %d, Train loss: %f, Dev loss: %f" % (epoch, train_loss, dev_loss))
 
-dict_save = {"model": model.state_dict(), "epoch": epoch, "train_loss": train_loss, "dev_loss": dev_loss}
+    early_stopping(epoch, dev_loss)
+    if early_stopping.counter == 0:
+        best_model = copy.deepcopy(model)
+
+    if early_stopping.early_stop:
+        logger.info("Early stopped")
+        logger.info("Best model at epoch: %d, loss: %f" % (early_stopping.best_epoch, early_stopping.best_score))
+        break
+
+dict_save = {"model": best_model.state_dict(), "epoch": epoch, "train_loss": train_loss, "dev_loss": dev_loss}
 torch.save(dict_save, config['model_name'])

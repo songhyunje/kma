@@ -2,9 +2,15 @@
 
 PyTorch implementation for Korean morphological analyzer
 
+Korean Morphological Analysis with Tied Sequence-to-Sequence Multi-Task Model
+
+Hyun-Je Song and Seong-Bae Park
+
+EMNLP 2019
+
 ### Dependency
-- PyTorch >= 1.0
-- torchtext (clone from github)
+- PyTorch >= 1.1
+- torchtext
 - Check the requirements.txt
 
 ```bash

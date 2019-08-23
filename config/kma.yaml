@@ -6,8 +6,8 @@ validation_file: data/valid.txt
 test_file: data/test.txt
 
 preprocessing:
-  max_token: 50
-  min_freq: 0
+  max_token: 80
+  min_freq: 3
 
 encoder:
   vocab_embed_dim: 100
@@ -32,7 +32,9 @@ optimizer:
 
 learning:
   epochs: 100
-  batch_size: 128
+  batch_size: 256
   max_grad_norm: 5
+  early_stop: 10
 
-gpu: False
+gpu: True
+replace_unk: True

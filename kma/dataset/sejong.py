@@ -3,7 +3,8 @@ import logging
 import os
 from itertools import chain
 
-from torchtext.data import Dataset, Example
+import torch
+from torchtext.data import Batch, Dataset, Example
 
 logger = logging.getLogger(__name__)
 
@@ -61,17 +62,6 @@ class SejongDataset(Dataset):
                 self.fields.update(zip(n, f))
                 del self.fields[n]
 
-    # @classmethod
-    # def splits(cls, ext, fields, path='data', root='',
-    #            train='train', validation='valid', test='test', **kwargs):
-    #     train_data = None if train is None else cls(
-    #         os.path.join(path, train), ext, fields, **kwargs)
-    #     val_data = None if validation is None else cls(
-    #         os.path.join(path, validation), ext, fields, **kwargs)
-    #     test_data = None if test is None else cls(
-    #         os.path.join(path, test), ext, fields, **kwargs)
-    #     return tuple(d for d in (train_data, val_data, test_data)
-    #                  if d is not None)
     @classmethod
     def splits(cls, fields, train='train.txt', validation='valid.txt', test='test.txt', **kwargs):
         train_data = None if train is None else cls(train, fields, **kwargs)
@@ -99,10 +89,12 @@ class POSExample(Example):
         return ex
 
     @classmethod
-    def fromsent(cls, data, named_field):
+    def fromsent(cls, data, named_fields):
         ex = cls()
-        name, field = named_field
         val = [list(v) + ['<blank>'] for v in data[:-1]] + [list(data[-1])]
         val = list(chain.from_iterable(val))
-        setattr(ex, name, field.preprocess(val))
+        for name, field in named_fields:
+            setattr(ex, name, field.preprocess(val))
+
         return ex
+
