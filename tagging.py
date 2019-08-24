@@ -11,7 +11,6 @@ from torch.utils.data import DataLoader
 from torchtext.data import Dataset
 
 from kma.common.util import syllable_to_eojeol
-# from kma.dataset import POSExample, SejongEvalDataset
 from kma.dataset import POSExample
 from kma.decoders.rnn_decoder import RNNDecoderPointer
 from kma.encoders.rnn_encoder import RNNEncoder
@@ -67,10 +66,6 @@ for sent in sents:
     syllables = [list(eojeol) for eojeol in sent.split()]
     examples.append(POSExample.fromsent(syllables, named_fields))
 
-# text_dataset = SejongEvalDataset(sents, WORD)
-# text_iter = DataLoader(dataset=text_dataset, shuffle=False,
-#                        batch_size=config['learning']['batch_size'])
-
 text_dataset = Dataset(examples, named_fields)
 text_iter = torchtext.data.BucketIterator(text_dataset, batch_size=5, shuffle=False)
 
@@ -95,8 +90,6 @@ with torch.no_grad():
                 else:
                     result.append(WORD.vocab.itos[tgt] + "/" + POS_TAG.vocab.itos[pos])
 
-            # result = [WORD.vocab.itos[tgt] + "/" + POS_TAG.vocab.itos[pos] for tgt, pos in
-            #           zip(tgt_id_seq, tag_id_seq)]
             outputs.append(result)
 
 with io.open(args.output_file, 'w', encoding='utf-8') as f:
