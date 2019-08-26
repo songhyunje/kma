@@ -2,12 +2,6 @@
 
 PyTorch implementation for Korean morphological analyzer
 
-Korean Morphological Analysis with Tied Sequence-to-Sequence Multi-Task Model
-
-Hyun-Je Song and Seong-Bae Park
-
-EMNLP 2019
-
 ### Dependency
 - PyTorch >= 1.1
 - torchtext
@@ -44,4 +38,5 @@ The tagged outputs are saved into output_file.
 ## Acknowledgement
 The implementation is highly inspired from [IBM's seq2seq](https://github.com/IBM/pytorch-seq2seq)
 and [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py).
+
 
