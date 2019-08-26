@@ -25,6 +25,7 @@ LOG_FORMAT = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
 logging.basicConfig(format=LOG_FORMAT, level=getattr(logging, 'INFO'))
 logger = logging.getLogger(__name__)
 
+logger.info('Config: %s' % config)
 device = torch.device('cuda' if torch.cuda.is_available() and config['gpu'] else 'cpu')
 logger.info('Device: %s' % device)
 

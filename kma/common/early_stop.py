@@ -1,6 +1,6 @@
 class EarlyStopping:
     """Early stops the training if validation score doesn't improve after a given patience."""
-    def __init__(self, min_epoch=40, patience=10, verbose=False):
+    def __init__(self, min_epoch=50, patience=10, verbose=False):
         self.patience = patience
         self.verbose = verbose
         self.counter = 0
