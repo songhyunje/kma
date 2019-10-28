@@ -33,7 +33,8 @@ We have a model which you can use to tag on new data. It reads sentences line by
 The tagged outputs are saved into output_file.
 
 ### Pretrained model
-- Pretrained models can be downloaded [download](https://drive.google.com/open?id=192tv3ZYPieFv5ubVgA2y7tdAm2p7ggiR)
+- Pretrained models can be downloaded [download](https://drive.google.com/open?id=1uzOEZnyqlz0EJNWMDdXMCeTHecmfZg7S)
+
 
 ## Acknowledgement
 The implementation is highly inspired from [IBM's seq2seq](https://github.com/IBM/pytorch-seq2seq)
