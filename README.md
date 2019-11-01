@@ -36,6 +36,16 @@ The tagged outputs are saved into output_file.
 - Pretrained models can be downloaded [download](https://drive.google.com/open?id=1uzOEZnyqlz0EJNWMDdXMCeTHecmfZg7S)
 
 
+## Citation
+```
+@inproceedings{song-park-2019-korean,
+  title={Korean Morphological Analysis with Tied Sequence-to-Sequence Multi-Task Model},
+  author={Song, Hyun-Je and Park, Seong-Bae},
+  booktitle={Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and 9th International Joint Conference on Natural Language Processing },
+  year={2019}
+}
+```
+
 ## Acknowledgement
 The implementation is highly inspired from [IBM's seq2seq](https://github.com/IBM/pytorch-seq2seq)
 and [OpenNMT-py](https://github.com/OpenNMT/OpenNMT-py).
