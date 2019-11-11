@@ -39,10 +39,11 @@ The tagged outputs are saved into output_file.
 ## Citation
 ```
 @inproceedings{song-park-2019-korean,
-  title={Korean Morphological Analysis with Tied Sequence-to-Sequence Multi-Task Model},
-  author={Song, Hyun-Je and Park, Seong-Bae},
-  booktitle={Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and 9th International Joint Conference on Natural Language Processing },
-  year={2019}
+  title="{K}orean Morphological Analysis with Tied Sequence-to-Sequence Multi-Task Model",
+  author="Song, Hyun-Je and Park, Seong-Bae",
+  booktitle="Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)",
+  pages="1436--1441",
+  year="2019"
 }
 ```
 
