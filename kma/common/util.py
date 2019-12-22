@@ -1,5 +1,7 @@
 import numpy as np
 
+from kma.dataset.data import Morph
+
 
 def compute_num_params(model):
     """

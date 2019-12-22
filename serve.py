@@ -1,5 +1,3 @@
-import argparse
-import io
 import logging
 import os
 
@@ -9,30 +7,21 @@ import torchtext
 import yaml
 from torchtext.data import Dataset
 
-from kma.common.util import syllable_to_eojeol
 from kma.dataset import POSExample
+from kma.dataset.data import Sentence
 from kma.decoders.rnn_decoder import RNNDecoderPointer
 from kma.encoders.rnn_encoder import RNNEncoder
 from kma.models.model import KMAModel
 from kma.taggers.crf_tagger import CRFTagger
 
-
-def parse_option():
-    option = argparse.ArgumentParser(description='Korean morphological analyzer')
-    option.add_argument('--input_file', type=str, required=True)
-    option.add_argument('--output_file', type=str, required=True)
-    return option.parse_args()
-
-
 with open(os.path.join('config', 'kma.yaml'), 'r') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
-args = parse_option()
 LOG_FORMAT = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
 logging.basicConfig(format=LOG_FORMAT, level=getattr(logging, 'INFO'))
 logger = logging.getLogger(__name__)
 
-device = torch.device('cuda' if torch.cuda.is_available() and config['gpu'] else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 logger.info('Device: %s' % device)
 
 with open(config['vocab_name'], 'rb') as fin:
@@ -55,23 +44,22 @@ model.load_state_dict(checkpoint['model'])
 logger.info(model)
 model.eval()
 
-with io.open(args.input_file, 'r', encoding='utf-8') as f:
-    sents = f.readlines()
-
 Default = torchtext.data.RawField()
 named_fields = [('word', WORD), ('raw', Default)]
-examples = []
-for sent in sents:
-    syllables = [list(eojeol) for eojeol in sent.split()]
-    examples.append(POSExample.fromsent(syllables, named_fields))
+
+# From POST
+text = "잘되면 전부 아가 덕분이죠."
+sent = Sentence(text=text)
+
+syllables = [list(eojeol) for eojeol in sent.text.split()]
+examples = [POSExample.fromsent(syllables, named_fields)]
 
 text_dataset = Dataset(examples, named_fields)
-text_iter = torchtext.data.BucketIterator(text_dataset, batch_size=5, shuffle=False)
+text_iter = torchtext.data.BucketIterator(text_dataset, batch_size=1, shuffle=False)
 
-outputs = []
 with torch.no_grad():
-    for t in text_iter:
-        decoder_outputs, tagger_outputs, others = model.infer(t.word[0].to(device))
+    for text in text_iter:
+        decoder_outputs, tagger_outputs, others = model.infer(text.word[0].to(device))
         for n in range(len(others['length'])):
             length = others['length'][n]
             tgt_id_seq = [others['sequence'][di][n].item() for di in range(length)]
@@ -82,15 +70,12 @@ with torch.no_grad():
                 if tgt == WORD.vocab.stoi[WORD.unk_token] and config['replace_unk']:
                     _, idx = others['attention_score'][i][n].max(1)
                     attn_idx = idx.item() - 1
-                    if attn_idx < 0 or attn_idx >= len(t.raw[n]):
+                    if attn_idx < 0 or attn_idx >= len(text.raw[n]):
                         continue
 
-                    result.append(t.raw[n][attn_idx] + "/" + POS_TAG.vocab.itos[pos])
+                    result.append(text.raw[n][attn_idx] + "/" + POS_TAG.vocab.itos[pos])
                 else:
                     result.append(WORD.vocab.itos[tgt] + "/" + POS_TAG.vocab.itos[pos])
 
-            outputs.append(result)
-
-with io.open(args.output_file, 'w', encoding='utf-8') as f:
-    for output in outputs:
-        f.write(' '.join('{}/{}'.format(*mt) for mt in syllable_to_eojeol(output)) + '\n')
+            sent.add_result(result)
+        print(sent.to_json())

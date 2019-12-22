@@ -1,10 +1,8 @@
 import io
 import logging
-import os
 from itertools import chain
 
-import torch
-from torchtext.data import Batch, Dataset, Example
+from torchtext.data import Dataset, Example
 
 logger = logging.getLogger(__name__)
 
